@@ -2,6 +2,8 @@
 
 namespace App\Entity\Menu;
 
+use App\Model\Activeable;
+use App\Model\Rankable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class MenuPosition
 {
+    use Activeable;
+    use Rankable;
+
     const HEADER      = 1;
     const FOOTER      = 2;
     const CREDENTIALS = 3;
@@ -25,22 +30,10 @@ class MenuPosition
     private $id;
 
     /**
-     * @var int
-     * @ORM\Column(name="rank", type="integer")
-     */
-    private $rank;
-
-    /**
      * @var string
      * @ORM\Column(name="label", type="string")
      */
     private $label;
-
-    /**
-     * @var bool
-     * @ORM\Column(name="active", type="boolean")
-     */
-    private $active;
 
     /**
      * @return int
@@ -62,25 +55,6 @@ class MenuPosition
     }
 
     /**
-     * @return int
-     */
-    public function getRank(): int
-    {
-        return $this->rank;
-    }
-
-    /**
-     * @param int $rank
-     * @return MenuPosition
-     */
-    public function setRank(int $rank): MenuPosition
-    {
-        $this->rank = $rank;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getLabel(): string
@@ -95,25 +69,6 @@ class MenuPosition
     public function setLabel(string $label): MenuPosition
     {
         $this->label = $label;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isActive(): bool
-    {
-        return $this->active;
-    }
-
-    /**
-     * @param bool $active
-     * @return MenuPosition
-     */
-    public function setActive(bool $active): MenuPosition
-    {
-        $this->active = $active;
 
         return $this;
     }
