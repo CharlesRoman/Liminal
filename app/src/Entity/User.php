@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Entity\Universe\Universe;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -53,11 +56,18 @@ class User implements UserInterface
     private $roles;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Universe\Universe", mappedBy="users")
+     * @var Collection
+     */
+    private $universes;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->roles = [];
+        $this->universes = new ArrayCollection();
     }
 
     /**
@@ -163,4 +173,48 @@ class User implements UserInterface
     {
         $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection
+     */
+    public function getUniverses(): Collection
+    {
+        return $this->universes;
+    }
+
+    /**
+     * @param Collection $universes
+     * @return User
+     */
+    public function setUniverses(Collection $universes): User
+    {
+        $this->universes = $universes;
+
+        return $this;
+    }
+
+    /**
+     * @param Universe $universe
+     * @return User
+     */
+    public function addUniverse(Universe $universe): User
+    {
+        $universe->addUser($this);
+        $this->universes->add($universe);
+
+        return $this;
+    }
+
+    /**
+     * @param Universe $universe
+     * @return User
+     */
+    public function removeUniverse(Universe $universe): User
+    {
+        $this->universes->removeElement($universe);
+        $universe->removeUser($this);
+
+        return $this;
+    }
+
 }

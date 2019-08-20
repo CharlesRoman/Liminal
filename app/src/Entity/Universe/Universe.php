@@ -3,6 +3,7 @@
 namespace App\Entity\Universe;
 
 use App\Entity\Menu\Menu;
+use App\Entity\User;
 use App\Model\Activeable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -48,11 +49,19 @@ class Universe
     private $menus;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="universes")
+     * @ORM\JoinTable(name="user_universe")
+     * @var Collection
+     */
+    private $users;
+
+    /**
      * Universe constructor.
      */
     public function __construct()
     {
         $this->menus = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -151,6 +160,49 @@ class Universe
     {
         $this->menus->removeElement($menu);
         $menu->removeUniverse($this);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    /**
+     * @param Collection $users
+     * @return Universe
+     */
+    public function setUsers(Collection $users): Universe
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     * @return Universe
+     */
+    public function addUser(User $user): Universe
+    {
+        $user->addUniverse($this);
+        $this->users->add($user);
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     * @return Universe
+     */
+    public function removeUser(User $user): Universe
+    {
+        $this->users->removeElement($user);
+        $user->removeUniverse($this);
 
         return $this;
     }
