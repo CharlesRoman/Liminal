@@ -52,13 +52,11 @@ class UniverseTranslation implements StringableInterface
 
     /**
      * @param string $name
-     * @return UniverseTranslation
+     * @return void
      */
-    public function setName(string $name): UniverseTranslation
+    public function setName(string $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     /**
@@ -71,13 +69,11 @@ class UniverseTranslation implements StringableInterface
 
     /**
      * @param string $logo
-     * @return UniverseTranslation
+     * @return void
      */
-    public function setLogo(string $logo): UniverseTranslation
+    public function setLogo(string $logo): void
     {
         $this->logo = $logo;
-
-        return $this;
     }
 
     /**
@@ -90,13 +86,11 @@ class UniverseTranslation implements StringableInterface
 
     /**
      * @param string $banner
-     * @return UniverseTranslation
+     * @return void
      */
-    public function setBanner(string $banner): UniverseTranslation
+    public function setBanner(string $banner): void
     {
         $this->banner = $banner;
-
-        return $this;
     }
 
     /**
@@ -109,13 +103,11 @@ class UniverseTranslation implements StringableInterface
 
     /**
      * @param string $description
-     * @return UniverseTranslation
+     * @return void
      */
-    public function setDescription(string $description): UniverseTranslation
+    public function setDescription(string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
     /**

@@ -21,12 +21,10 @@ trait Activeable
 
     /**
      * @param bool $active
-     * @return Activeable
+     * @return void
      */
-    public function setActive(bool $active): Activeable
+    public function setActive(bool $active): void
     {
         $this->active = $active;
-
-        return $this;
     }
 }

@@ -58,13 +58,11 @@ class Menu
 
     /**
      * @param int $id
-     * @return Menu
+     * @return void
      */
-    public function setId(int $id): Menu
+    public function setId(int $id): void
     {
         $this->id = $id;
-
-        return $this;
     }
 
     /**
@@ -77,13 +75,11 @@ class Menu
 
     /**
      * @param Menu|null $parent
-     * @return Menu
+     * @return void
      */
-    public function setParent(?Menu $parent): Menu
+    public function setParent(?Menu $parent): void
     {
         $this->parent = $parent;
-
-        return $this;
     }
 
     /**
@@ -96,37 +92,31 @@ class Menu
 
     /**
      * @param Collection $menuPositions
-     * @return Menu
+     * @return void
      */
-    public function setMenuPositions(Collection $menuPositions): Menu
+    public function setMenuPositions(Collection $menuPositions): void
     {
         $this->menuPositions = $menuPositions;
-
-        return $this;
     }
 
     /**
      * @param MenuPosition $menuPosition
-     * @return Menu
+     * @return void
      */
-    public function addMenuPosition(MenuPosition $menuPosition): Menu
+    public function addMenuPosition(MenuPosition $menuPosition): void
     {
         $menuPosition->addMenu($this);
         $this->menuPositions->add($menuPosition);
-
-        return $this;
     }
 
     /**
      * @param MenuPosition $menuPosition
-     * @return Menu
+     * @return void
      */
-    public function removeMenuPosition(MenuPosition $menuPosition): Menu
+    public function removeMenuPosition(MenuPosition $menuPosition): void
     {
         $this->menuPositions->removeElement($menuPosition);
         $menuPosition->removeMenu($this);
-
-        return $this;
     }
 
     /**
@@ -139,32 +129,29 @@ class Menu
 
     /**
      * @param Collection $universes
-     * @return Menu
+     * @return void
      */
-    public function setUniverses(Collection $universes): Menu
+    public function setUniverses(Collection $universes): void
     {
         $this->universes = $universes;
-
-        return $this;
-    }
-
-    public function addUniverse(Universe $universe): Menu
-    {
-        $universe->addMenu($this);
-        $this->universes->add($universe);
-
-        return $this;
     }
 
     /**
      * @param Universe $universe
-     * @return Menu
      */
-    public function removeUniverse(Universe $universe): Menu
+    public function addUniverse(Universe $universe): void
+    {
+        $universe->addMenu($this);
+        $this->universes->add($universe);
+    }
+
+    /**
+     * @param Universe $universe
+     * @return void
+     */
+    public function removeUniverse(Universe $universe): void
     {
         $this->universes->removeElement($universe);
         $universe->removeMenu($this);
-
-        return $this;
     }
 }

@@ -20,12 +20,10 @@ trait Rankable
 
     /**
      * @param int $rank
-     * @return Rankable
+     * @return void
      */
-    public function setRank(int $rank): Rankable
+    public function setRank(int $rank): void
     {
         $this->rank = $rank;
-
-        return $this;
     }
 }

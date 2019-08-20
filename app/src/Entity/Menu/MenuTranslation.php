@@ -43,13 +43,11 @@ class MenuTranslation implements StringableInterface
 
     /**
      * @param string $label
-     * @return MenuTranslation
+     * @return void
      */
-    public function setLabel(string $label): MenuTranslation
+    public function setLabel(string $label): void
     {
         $this->label = $label;
-
-        return $this;
     }
 
     /**
@@ -62,13 +60,11 @@ class MenuTranslation implements StringableInterface
 
     /**
      * @param string $link
-     * @return MenuTranslation
+     * @return void
      */
-    public function setLink(string $link): MenuTranslation
+    public function setLink(string $link): void
     {
         $this->link = $link;
-
-        return $this;
     }
 
     /**
@@ -81,13 +77,11 @@ class MenuTranslation implements StringableInterface
 
     /**
      * @param string $fontAwesomeIcon
-     * @return MenuTranslation
+     * @return void
      */
-    public function setFontAwesomeIcon(string $fontAwesomeIcon): MenuTranslation
+    public function setFontAwesomeIcon(string $fontAwesomeIcon): void
     {
         $this->fontAwesomeIcon = $fontAwesomeIcon;
-
-        return $this;
     }
 
     /**

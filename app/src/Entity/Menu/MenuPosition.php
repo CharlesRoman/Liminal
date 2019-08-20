@@ -61,13 +61,11 @@ class MenuPosition implements StringableInterface
 
     /**
      * @param int $id
-     * @return MenuPosition
+     * @return void
      */
-    public function setId(int $id): MenuPosition
+    public function setId(int $id): void
     {
         $this->id = $id;
-
-        return $this;
     }
 
     /**
@@ -80,13 +78,11 @@ class MenuPosition implements StringableInterface
 
     /**
      * @param string $label
-     * @return MenuPosition
+     * @return void
      */
-    public function setLabel(string $label): MenuPosition
+    public function setLabel(string $label): void
     {
         $this->label = $label;
-
-        return $this;
     }
 
     /**
@@ -99,37 +95,31 @@ class MenuPosition implements StringableInterface
 
     /**
      * @param Collection $menus
-     * @return MenuPosition
+     * @return void
      */
-    public function setMenus(Collection $menus): MenuPosition
+    public function setMenus(Collection $menus): void
     {
         $this->menus = $menus;
-
-        return $this;
     }
 
     /**
      * @param Menu $menu
-     * @return MenuPosition
+     * @return void
      */
-    public function addMenu(Menu $menu): MenuPosition
+    public function addMenu(Menu $menu): void
     {
         $menu->addMenuPosition($this);
         $this->menus->add($menu);
-
-        return $this;
     }
 
     /**
      * @param Menu $menu
-     * @return MenuPosition
+     * @return void
      */
-    public function removeMenu(Menu $menu): MenuPosition
+    public function removeMenu(Menu $menu): void
     {
         $this->menus->removeElement($menu);
         $menu->removeMenuPosition($this);
-
-        return $this;
     }
 
     /**

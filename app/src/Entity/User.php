@@ -184,37 +184,30 @@ class User implements UserInterface
 
     /**
      * @param Collection $universes
-     * @return User
+     * @return void
      */
-    public function setUniverses(Collection $universes): User
+    public function setUniverses(Collection $universes): void
     {
         $this->universes = $universes;
-
-        return $this;
     }
 
     /**
      * @param Universe $universe
-     * @return User
+     * @return void
      */
-    public function addUniverse(Universe $universe): User
+    public function addUniverse(Universe $universe): void
     {
         $universe->addUser($this);
         $this->universes->add($universe);
-
-        return $this;
     }
 
     /**
      * @param Universe $universe
-     * @return User
+     * @return void
      */
-    public function removeUniverse(Universe $universe): User
+    public function removeUniverse(Universe $universe): void
     {
         $this->universes->removeElement($universe);
         $universe->removeUser($this);
-
-        return $this;
     }
-
 }

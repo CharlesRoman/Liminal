@@ -74,13 +74,11 @@ class Universe
 
     /**
      * @param int $id
-     * @return Universe
+     * @return void
      */
-    public function setId(int $id): Universe
+    public function setId(int $id): void
     {
         $this->id = $id;
-
-        return $this;
     }
 
     /**
@@ -93,13 +91,11 @@ class Universe
 
     /**
      * @param string $domain
-     * @return Universe
+     * @return void
      */
-    public function setDomain(string $domain): Universe
+    public function setDomain(string $domain): void
     {
         $this->domain = $domain;
-
-        return $this;
     }
 
     /**
@@ -112,13 +108,11 @@ class Universe
 
     /**
      * @param string $directory
-     * @return Universe
+     * @return void
      */
-    public function setDirectory(string $directory): Universe
+    public function setDirectory(string $directory): void
     {
         $this->directory = $directory;
-
-        return $this;
     }
 
     /**
@@ -131,37 +125,31 @@ class Universe
 
     /**
      * @param Collection $menus
-     * @return Universe
+     * @return void
      */
-    public function setMenus(Collection $menus): Universe
+    public function setMenus(Collection $menus): void
     {
         $this->menus = $menus;
-
-        return $this;
     }
 
     /**
      * @param Menu $menu
-     * @return Universe
+     * @return void
      */
-    public function addMenu(Menu $menu): Universe
+    public function addMenu(Menu $menu): void
     {
         $menu->addUniverse($this);
         $this->menus->add($menu);
-
-        return $this;
     }
 
     /**
      * @param Menu $menu
-     * @return Universe
+     * @return void
      */
-    public function removeMenu(Menu $menu): Universe
+    public function removeMenu(Menu $menu): void
     {
         $this->menus->removeElement($menu);
         $menu->removeUniverse($this);
-
-        return $this;
     }
 
     /**
@@ -174,36 +162,30 @@ class Universe
 
     /**
      * @param Collection $users
-     * @return Universe
+     * @return void
      */
-    public function setUsers(Collection $users): Universe
+    public function setUsers(Collection $users): void
     {
         $this->users = $users;
-
-        return $this;
     }
 
     /**
      * @param User $user
-     * @return Universe
+     * @return void
      */
-    public function addUser(User $user): Universe
+    public function addUser(User $user): void
     {
         $user->addUniverse($this);
         $this->users->add($user);
-
-        return $this;
     }
 
     /**
      * @param User $user
-     * @return Universe
+     * @return void
      */
-    public function removeUser(User $user): Universe
+    public function removeUser(User $user): void
     {
         $this->users->removeElement($user);
         $user->removeUniverse($this);
-
-        return $this;
     }
 }
