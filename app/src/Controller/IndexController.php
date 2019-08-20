@@ -6,12 +6,14 @@ use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Safe\json_encode;
 
 final class IndexController extends AbstractController
 {
     /**
      * @Route("/{vueRouting}", requirements={"vueRouting"="^(?!api|_(profiler|wdt)).*"}, name="index")
      * @return Response
+     * @throws \Safe\Exceptions\JsonException
      */
     public function indexAction(): Response
     {
