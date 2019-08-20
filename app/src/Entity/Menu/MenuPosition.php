@@ -4,18 +4,19 @@ namespace App\Entity\Menu;
 
 use App\Model\Activeable;
 use App\Model\Rankable;
+use App\Model\StringableInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Class MenuPosition
  * @package App\Entity\Menu
  * @ORM\Entity
- * @ORM\Table(name="menu_position")
  */
-class MenuPosition
+class MenuPosition implements StringableInterface
 {
-    use Activeable;
-    use Rankable;
+    use Activeable, Rankable;
 
     const HEADER      = 1;
     const FOOTER      = 2;
@@ -31,9 +32,24 @@ class MenuPosition
 
     /**
      * @var string
-     * @ORM\Column(name="label", type="string")
+     * @ORM\Column(type="string")
      */
     private $label;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Menu\Menu", inversedBy="menuPositions")
+     * @ORM\JoinTable(name="menu_menu_position")
+     * @var Collection
+     */
+    private $menus;
+
+    /**
+     * MenuPosition constructor.
+     */
+    public function __construct()
+    {
+        $this->menus = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -71,5 +87,56 @@ class MenuPosition
         $this->label = $label;
 
         return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMenus(): Collection
+    {
+        return $this->menus;
+    }
+
+    /**
+     * @param Collection $menus
+     * @return MenuPosition
+     */
+    public function setMenus(Collection $menus): MenuPosition
+    {
+        $this->menus = $menus;
+
+        return $this;
+    }
+
+    /**
+     * @param Menu $menu
+     * @return MenuPosition
+     */
+    public function addMenu(Menu $menu): MenuPosition
+    {
+        $menu->addMenuPosition($this);
+        $this->menus->add($menu);
+
+        return $this;
+    }
+
+    /**
+     * @param Menu $menu
+     * @return MenuPosition
+     */
+    public function removeMenu(Menu $menu): MenuPosition
+    {
+        $this->menus->removeElement($menu);
+        $menu->removeMenuPosition($this);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string)$this->getLabel();
     }
 }
