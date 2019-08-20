@@ -4,16 +4,21 @@ namespace App\Entity;
 
 use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletable;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="user")
- * @ORM\HasLifecycleCallbacks
  */
 class User implements UserInterface
 {
+
+    use Timestampable;
+    use SoftDeletable;
+
     /**
      * @var int
      * @ORM\Id
@@ -49,41 +54,11 @@ class User implements UserInterface
     private $roles;
 
     /**
-     * @var \DateTime
-     * @ORM\Column(name="created", type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="updated", type="datetime", nullable=true)
-     */
-    private $updated;
-
-    /**
      * User constructor.
      */
     public function __construct()
     {
         $this->roles = [];
-    }
-
-    /**
-     * @ORM\PrePersist
-     * @return void
-     */
-    public function onPrePersist(): void
-    {
-        $this->created = Carbon::now();
-    }
-
-    /**
-     * @ORM\PreUpdate
-     * @return void
-     */
-    public function onPreUpdate(): void
-    {
-        $this->updated = Carbon::now();
     }
 
     /**
@@ -188,21 +163,5 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated(): \DateTime
-    {
-        return $this->created;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getUpdated(): ?\DateTime
-    {
-        return $this->updated;
     }
 }
