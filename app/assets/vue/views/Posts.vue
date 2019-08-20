@@ -4,7 +4,7 @@
             <h1>Posts</h1>
         </div>
 
-        <div class="row col">
+        <div class="row col" v-if="canCreatePost">
             <form>
                 <div class="form-row">
                     <div class="col-8">
@@ -69,6 +69,9 @@
             posts () {
                 return this.$store.getters['post/posts'];
             },
+            canCreatePost () {
+                return this.$store.getters['security/hasRole']('ROLE_FOO');
+            }
         },
         methods: {
             createPost () {

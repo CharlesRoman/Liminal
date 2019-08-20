@@ -3,12 +3,18 @@
 namespace App\Controller;
 
 use App\Service\PostService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Serializer\SerializerInterface;
 
+/**
+ * Class ApiPostController
+ * @package App\Controller
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
+ */
 final class ApiPostController extends AbstractController
 {
     /** @var SerializerInterface */
@@ -32,6 +38,7 @@ final class ApiPostController extends AbstractController
      * @Rest\Post("/api/post/create", name="createPost")
      * @param Request $request
      * @return JsonResponse
+     * @IsGranted("ROLE_FOO")
      */
     public function createAction(Request $request): JsonResponse
     {
