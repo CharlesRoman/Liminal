@@ -22,7 +22,7 @@ services:
       PHP_MEMORY_LIMIT: 1G
       APP_ENV: dev
       APP_SECRET: 8d2a5c935d8ef1c0e2b751147382bc75
-      DATABASE_URL: mysql://foo:bar@mysql:3306/foo
+      DATABASE_URL: mysql://liminal_admin:secretpassword@mysql:3306/liminal_db
     volumes:
       - ./app:/var/www/html:rw
 
@@ -30,9 +30,9 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: foo
-      MYSQL_USER: foo
-      MYSQL_PASSWORD: bar
+      MYSQL_DATABASE: liminal_db
+      MYSQL_USER: liminal_admin
+      MYSQL_PASSWORD: secretpassword
     volumes:
       - mysql_data:/var/lib/mysql
       - ./services/mysql/utf8mb4.cnf:/etc/mysql/conf.d/utf8mb4.cnf:ro
@@ -45,8 +45,8 @@ services:
       - traefik.frontend.rule=Host:phpadmin.app.localhost
     environment:
       PMA_HOST: mysql
-      PMA_USER: foo
-      PMA_PASSWORD: bar
+      PMA_USER: liminal_admin
+      PMA_PASSWORD: secretpassword
 
 volumes:
 
