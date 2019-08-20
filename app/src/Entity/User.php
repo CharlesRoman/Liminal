@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
