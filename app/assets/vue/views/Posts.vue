@@ -70,7 +70,7 @@
                 return this.$store.getters['post/posts'];
             },
             canCreatePost () {
-                return this.$store.getters['security/hasRole']('ROLE_FOO');
+                return this.$store.getters['security/hasRole']('ROLE_ADMIN');
             }
         },
         methods: {

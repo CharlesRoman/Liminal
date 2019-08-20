@@ -38,7 +38,7 @@ final class ApiPostController extends AbstractController
      * @Rest\Post("/api/post/create", name="createPost")
      * @param Request $request
      * @return JsonResponse
-     * @IsGranted("ROLE_FOO")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function createAction(Request $request): JsonResponse
     {
