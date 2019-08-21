@@ -5,6 +5,7 @@ namespace App\Entity\Universe;
 use App\Entity\Menu\Menu;
 use App\Entity\Page\Page;
 use App\Entity\Sorting\Category;
+use App\Entity\Sorting\Selection;
 use App\Entity\User;
 use App\Model\Activeable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -71,6 +72,14 @@ class Universe
      */
     private $categories;
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sorting\Selection", inversedBy="universes")
+     * @ORM\JoinTable(name="selection_universe")
+     * @var Collection
+     */
+    private $selections;
+
     /**
      * Universe constructor.
      */
@@ -80,6 +89,7 @@ class Universe
         $this->users      = new ArrayCollection();
         $this->pages      = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->selections = new ArrayCollection();
     }
 
     /**
@@ -278,4 +288,42 @@ class Universe
         $this->categories->removeElement($category);
         $category->removeUniverse($this);
     }
+
+    /**
+     * @return Collection
+     */
+    public function getSelections(): Collection
+    {
+        return $this->selections;
+    }
+
+    /**
+     * @param Collection $selections
+     */
+    public function setSelections(Collection $selections): void
+    {
+        $this->selections = $selections;
+    }
+
+    /**
+     * @param Selection $selection
+     * @return void
+     */
+    public function addSelection(Selection $selection): void
+    {
+        $selection->addUniverse($this);
+        $this->selections->add($selection);
+    }
+
+    /**
+     * @param Selection $selection
+     * @return void
+     */
+    public function removeSelection(Selection $selection): void
+    {
+        $this->selections->removeElement($selection);
+        $selection->removeUniverse($this);
+    }
+
+
 }

@@ -3,6 +3,7 @@
 namespace App\Entity\Page;
 
 use App\Entity\Sorting\Category;
+use App\Entity\Sorting\Selection;
 use App\Entity\Universe\Universe;
 use App\Entity\User;
 use App\Model\Activeable;
@@ -65,12 +66,19 @@ class Page
     private $category;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sorting\Selection", mappedBy="pages")
+     * @var Collection
+     */
+    private $selections;
+
+    /**
      * Page constructor.
      */
     public function __construct()
     {
-        $this->universes = new ArrayCollection();
-        $this->rows      = new ArrayCollection();
+        $this->universes  = new ArrayCollection();
+        $this->rows       = new ArrayCollection();
+        $this->selections = new ArrayCollection();
     }
 
     /**
@@ -210,4 +218,38 @@ class Page
         $this->category = $category;
     }
 
+    /**
+     * @return Collection
+     */
+    public function getSelections(): Collection
+    {
+        return $this->selections;
+    }
+
+    /**
+     * @param Collection $selections
+     */
+    public function setSelections(Collection $selections): void
+    {
+        $this->selections = $selections;
+    }
+
+    /**
+     * @param Selection $selection
+     */
+    public function addSelection(Selection $selection): void
+    {
+        $selection->addPage($this);
+        $this->selections->add($selection);
+    }
+
+    /**
+     * @param Selection $selection
+     * @return void
+     */
+    public function removeSelection(Selection $selection): void
+    {
+        $this->selections->removeElement($selection);
+        $selection->removePage($this);
+    }
 }

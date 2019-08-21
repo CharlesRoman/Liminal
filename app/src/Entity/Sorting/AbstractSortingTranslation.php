@@ -8,11 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class CategoryTranslation
+ * Class AbstractSortingTranslation
  * @package App\Entity\Sorting
  * @ORM\Entity
  */
-class CategoryTranslation implements StringableInterface
+class AbstractSortingTranslation implements StringableInterface
 {
     use Translation;
 
