@@ -75,6 +75,7 @@ class User implements UserInterface
     {
         $this->roles     = [];
         $this->universes = new ArrayCollection();
+        $this->pages     = new ArrayCollection();
     }
 
     /**

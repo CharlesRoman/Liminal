@@ -33,21 +33,28 @@ class Page
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Page\PageType")
      * @ORM\JoinColumns({ @ORM\JoinColumn(name="page_type_id", referencedColumnName="id", nullable=true) })
-     * @var PageType
+     * @var PageType|null
      */
     private $pageType;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumns({ @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true) })
-     * @var User
+     * @var User|null
      */
     private $user;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Universe\Universe", mappedBy="pages")
      * @var Collection
      */
     private $universes;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Page\Row", mappedBy="page")
+     * @var Collection
+     */
+    private $rows;
 
     /**
      * Page constructor.
@@ -55,6 +62,7 @@ class Page
     public function __construct()
     {
         $this->universes = new ArrayCollection();
+        $this->rows      = new ArrayCollection();
     }
 
     /**
@@ -74,33 +82,35 @@ class Page
     }
 
     /**
-     * @return PageType
+     * @return PageType|null
      */
-    public function getPageType(): PageType
+    public function getPageType(): ?PageType
     {
         return $this->pageType;
     }
 
     /**
-     * @param PageType $pageType
+     * @param PageType|null $pageType
+     * @return void
      */
-    public function setPageType(PageType $pageType): void
+    public function setPageType(?PageType $pageType): void
     {
         $this->pageType = $pageType;
     }
 
     /**
-     * @return User
+     * @return User|null
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
     /**
-     * @param User $user
+     * @param User|null $user
+     * @return void
      */
-    public function setUser(User $user): void
+    public function setUser(?User $user): void
     {
         $this->user = $user;
     }
@@ -140,5 +150,40 @@ class Page
         $universe->removePage($this);
     }
 
+    /**
+     * @return Collection
+     */
+    public function getRows(): Collection
+    {
+        return $this->rows;
+    }
+
+    /**
+     * @param Collection $rows
+     */
+    public function setRows(Collection $rows): void
+    {
+        $this->rows = $rows;
+    }
+
+    /**
+     * @param Row $row
+     * @return void
+     */
+    public function addRow(Row $row): void
+    {
+        $row->setPage($this);
+        $this->rows->add($row);
+    }
+
+    /**
+     * @param Row $row
+     * @return void
+     */
+    public function removeRow(Row $row): void
+    {
+        $this->rows->removeElement($row);
+        $row->setPage(null);
+    }
 
 }

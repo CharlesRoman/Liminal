@@ -23,21 +23,21 @@ class UniverseTranslation implements StringableInterface
     private $name;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/gif" })
      */
     private $logo;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      * @Assert\File(mimeTypes={ "image/jpeg", "image/png", "image/gif" })
      */
     private $banner;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -60,52 +60,52 @@ class UniverseTranslation implements StringableInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLogo(): string
+    public function getLogo(): ?string
     {
         return $this->logo;
     }
 
     /**
-     * @param string $logo
+     * @param string|null $logo
      * @return void
      */
-    public function setLogo(string $logo): void
+    public function setLogo(?string $logo): void
     {
         $this->logo = $logo;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBanner(): string
+    public function getBanner(): ?string
     {
         return $this->banner;
     }
 
     /**
-     * @param string $banner
+     * @param string|null $banner
      * @return void
      */
-    public function setBanner(string $banner): void
+    public function setBanner(?string $banner): void
     {
         $this->banner = $banner;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      * @return void
      */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
