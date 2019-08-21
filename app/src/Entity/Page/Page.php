@@ -1,0 +1,144 @@
+<?php
+
+namespace App\Entity\Page;
+
+use App\Entity\Universe\Universe;
+use App\Entity\User;
+use App\Model\Activeable;
+use App\Model\Rankable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletable;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Knp\DoctrineBehaviors\Model\Translatable\Translatable;
+
+/**
+ * Class Page
+ * @package App\Entity\Page
+ * @ORM\Entity
+ */
+class Page
+{
+    use Timestampable, SoftDeletable, Rankable, Activeable, Translatable;
+
+    /**
+     * @var int
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Page\PageType")
+     * @ORM\JoinColumns({ @ORM\JoinColumn(name="page_type_id", referencedColumnName="id", nullable=true) })
+     * @var PageType
+     */
+    private $pageType;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumns({ @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true) })
+     * @var User
+     */
+    private $user;
+
+    /**
+     * @var Collection
+     */
+    private $universes;
+
+    /**
+     * Page constructor.
+     */
+    public function __construct()
+    {
+        $this->universes = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return PageType
+     */
+    public function getPageType(): PageType
+    {
+        return $this->pageType;
+    }
+
+    /**
+     * @param PageType $pageType
+     */
+    public function setPageType(PageType $pageType): void
+    {
+        $this->pageType = $pageType;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser(User $user): void
+    {
+        $this->user = $user;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUniverses(): Collection
+    {
+        return $this->universes;
+    }
+
+    /**
+     * @param Collection $universes
+     */
+    public function setUniverses(Collection $universes): void
+    {
+        $this->universes = $universes;
+    }
+
+    /**
+     * @param Universe $universe
+     */
+    public function addUniverse(Universe $universe): void
+    {
+        $universe->addPage($this);
+        $this->universes->add($universe);
+    }
+
+    /**
+     * @param Universe $universe
+     * @return void
+     */
+    public function removeUniverse(Universe $universe): void
+    {
+        $this->universes->removeElement($universe);
+        $universe->removePage($this);
+    }
+
+
+}

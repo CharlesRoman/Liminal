@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Page\Page;
 use App\Entity\Universe\Universe;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -62,11 +63,17 @@ class User implements UserInterface
     private $universes;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Page\Page", mappedBy="user")
+     * @var Collection
+     */
+    private $pages;
+
+    /**
      * User constructor.
      */
     public function __construct()
     {
-        $this->roles = [];
+        $this->roles     = [];
         $this->universes = new ArrayCollection();
     }
 
@@ -209,5 +216,41 @@ class User implements UserInterface
     {
         $this->universes->removeElement($universe);
         $universe->removeUser($this);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPages(): Collection
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param Collection $pages
+     */
+    public function setPages(Collection $pages): void
+    {
+        $this->pages = $pages;
+    }
+
+    /**
+     * @param Page $page
+     * @return void
+     */
+    public function addPage(Page $page): void
+    {
+        $page->setUser($this);
+        $this->pages->add($page);
+    }
+
+    /**
+     * @param Page $page
+     * @return void
+     */
+    public function removePage(Page $page): void
+    {
+        $this->pages->removeElement($page);
+        $page->setUser(null);
     }
 }

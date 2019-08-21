@@ -22,13 +22,13 @@ class MenuTranslation implements StringableInterface
     private $label;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
     private $link;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(type="string", nullable=true)
      */
     private $fontAwesomeIcon;
@@ -51,35 +51,33 @@ class MenuTranslation implements StringableInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLink(): string
+    public function getLink(): ?string
     {
         return $this->link;
     }
 
     /**
-     * @param string $link
-     * @return void
+     * @param string|null $link
      */
-    public function setLink(string $link): void
+    public function setLink(?string $link): void
     {
         $this->link = $link;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFontAwesomeIcon(): string
+    public function getFontAwesomeIcon(): ?string
     {
         return $this->fontAwesomeIcon;
     }
 
     /**
-     * @param string $fontAwesomeIcon
-     * @return void
+     * @param string|null $fontAwesomeIcon
      */
-    public function setFontAwesomeIcon(string $fontAwesomeIcon): void
+    public function setFontAwesomeIcon(?string $fontAwesomeIcon): void
     {
         $this->fontAwesomeIcon = $fontAwesomeIcon;
     }

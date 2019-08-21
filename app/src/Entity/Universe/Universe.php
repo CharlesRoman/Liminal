@@ -3,6 +3,7 @@
 namespace App\Entity\Universe;
 
 use App\Entity\Menu\Menu;
+use App\Entity\Page\Page;
 use App\Entity\User;
 use App\Model\Activeable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -56,12 +57,20 @@ class Universe
     private $users;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Page\Page", inversedBy="universes")
+     * @ORM\JoinTable(name="page_universe")
+     * @var Collection
+     */
+    private $pages;
+
+    /**
      * Universe constructor.
      */
     public function __construct()
     {
         $this->menus = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->pages = new ArrayCollection();
     }
 
     /**
@@ -187,5 +196,41 @@ class Universe
     {
         $this->users->removeElement($user);
         $user->removeUniverse($this);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPages(): Collection
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param Collection $pages
+     */
+    public function setPages(Collection $pages): void
+    {
+        $this->pages = $pages;
+    }
+
+    /**
+     * @param Page $page
+     * @return void
+     */
+    public function addPage(Page $page): void
+    {
+        $page->addUniverse($this);
+        $this->pages->add($page);
+    }
+
+    /**
+     * @param Page $page
+     * @return void
+     */
+    public function removePage(Page $page): void
+    {
+        $this->pages->removeElement($page);
+        $page->removeUniverse($this);
     }
 }
