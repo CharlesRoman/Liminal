@@ -4,6 +4,7 @@ namespace App\Entity\Universe;
 
 use App\Entity\Menu\Menu;
 use App\Entity\Page\Page;
+use App\Entity\Sorting\Category;
 use App\Entity\User;
 use App\Model\Activeable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -64,13 +65,21 @@ class Universe
     private $pages;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Sorting\Category", inversedBy="universes")
+     * @ORM\JoinTable(name="category_universe")
+     * @var Collection
+     */
+    private $categories;
+
+    /**
      * Universe constructor.
      */
     public function __construct()
     {
-        $this->menus = new ArrayCollection();
-        $this->users = new ArrayCollection();
-        $this->pages = new ArrayCollection();
+        $this->menus      = new ArrayCollection();
+        $this->users      = new ArrayCollection();
+        $this->pages      = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -232,5 +241,41 @@ class Universe
     {
         $this->pages->removeElement($page);
         $page->removeUniverse($this);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param Collection $categories
+     */
+    public function setCategories(Collection $categories): void
+    {
+        $this->categories = $categories;
+    }
+
+    /**
+     * @param Category $category
+     * @return void
+     */
+    public function addCategory(Category $category): void
+    {
+        $category->addUniverse($this);
+        $this->categories->add($category);
+    }
+
+    /**
+     * @param Category $category
+     * @return void
+     */
+    public function removeCategory(Category $category): void
+    {
+        $this->categories->removeElement($category);
+        $category->removeUniverse($this);
     }
 }
