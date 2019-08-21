@@ -2,22 +2,20 @@
 
 namespace App\Entity\Page;
 
+use App\Model\Activeable;
 use App\Model\StringableInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class BlockType
+ * Class Width
  * @package App\Entity\Page
  * @ORM\Entity
  */
-class BlockType implements StringableInterface, TypeEntityInterface
+class Width implements TypeEntityInterface, StringableInterface
 {
-    use TypeEntity;
-
-    const TEXT  = 'block-text';
-    const IMAGE = 'block-image';
+    use TypeEntity, Activeable;
 
     /**
      * @var int
@@ -28,13 +26,13 @@ class BlockType implements StringableInterface, TypeEntityInterface
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page\Block", mappedBy="blockType")
+     * @ORM\OneToMany(targetEntity="App\Entity\Page\Block", mappedBy="width")
      * @var Collection
      */
     private $blocks;
 
     /**
-     * BlockType constructor.
+     * Width constructor.
      */
     public function __construct()
     {
@@ -51,12 +49,12 @@ class BlockType implements StringableInterface, TypeEntityInterface
 
     /**
      * @param int $id
-     * @return void
      */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
+
 
     /**
      * @return Collection
@@ -80,7 +78,7 @@ class BlockType implements StringableInterface, TypeEntityInterface
      */
     public function addBlock(Block $block): void
     {
-        $block->setBlockType($this);
+        $block->setWidth($this);
         $this->blocks->add($block);
     }
 
@@ -91,6 +89,6 @@ class BlockType implements StringableInterface, TypeEntityInterface
     public function removeBlock(Block $block): void
     {
         $this->blocks->removeElement($block);
-        $block->setBlockType(null);
+        $block->setWidth(null);
     }
 }

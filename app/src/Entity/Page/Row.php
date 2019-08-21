@@ -4,6 +4,7 @@ namespace App\Entity\Page;
 
 use App\Model\Activeable;
 use App\Model\Rankable;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
@@ -45,6 +46,12 @@ class Row
      * @var RowType|null
      */
     private $rowType;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Page\Block", mappedBy="row")
+     * @var Collection
+     */
+    private $blocks;
 
     /**
      * @return int
@@ -108,5 +115,42 @@ class Row
     public function setRowType(?RowType $rowType): void
     {
         $this->rowType = $rowType;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getBlocks(): Collection
+    {
+        return $this->blocks;
+    }
+
+    /**
+     * @param Collection $blocks
+     */
+    public function setBlocks(Collection $blocks): void
+    {
+        $this->blocks = $blocks;
+    }
+
+
+    /**
+     * @param Block $block
+     * @return void
+     */
+    public function addBlock(Block $block): void
+    {
+        $block->setRow($this);
+        $this->blocks->add($block);
+    }
+
+    /**
+     * @param Block $block
+     * @return void
+     */
+    public function removeBlock(Block $block): void
+    {
+        $this->blocks->removeElement($block);
+        $block->setRow(null);
     }
 }
